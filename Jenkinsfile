@@ -2,11 +2,13 @@ pipeline {
     agent {
         docker {
             image 'cimg/android:2025.04.1'
+            args '-u root' // to avoid permissions issues
         }
     }
 
     environment {
         ANDROID_HOME = '/opt/android-sdk-linux' // Adjust to your image path
+        GRADLE_USER_HOME = "${WORKSPACE}/.gradle"
         PATH = "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
     }
 
